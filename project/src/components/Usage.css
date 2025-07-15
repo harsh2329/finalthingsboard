@@ -1,0 +1,80 @@
+.usage {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.usage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.usage-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.usage-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usage-label {
+  font-size: 14px;
+  color: #333;
+}
+
+.usage-value {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.usage-bar {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.usage-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}

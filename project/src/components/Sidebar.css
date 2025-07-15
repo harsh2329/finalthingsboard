@@ -1,0 +1,100 @@
+.sidebar {
+  width: 240px;
+  background-color: #37474f;
+  height: 100%;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+  border-right: 1px solid #455a64;
+}
+
+.sidebar.collapsed {
+  width: 64px;
+}
+
+.sidebar-nav {
+  padding: 8px 0;
+}
+
+.nav-item {
+  margin-bottom: 2px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  text-align: left;
+  gap: 12px;
+}
+
+.nav-link:hover {
+  background-color: #455a64;
+  color: white;
+}
+
+.nav-link.active {
+  background-color: #4a6fa5;
+  color: white;
+}
+
+.nav-link span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expand-icon {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-children {
+  background-color: #2c3e50;
+  border-left: 3px solid #4a6fa5;
+  margin-left: 16px;
+}
+
+.nav-child-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.nav-child-link:hover {
+  background-color: #455a64;
+  color: white;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #37474f;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #546e7a;
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #607d8b;
+}
