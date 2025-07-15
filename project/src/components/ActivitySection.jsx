@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronDown, Clock } from 'lucide-react';
 import './ActivitySection.css';
 
-const ActivitySection: React.FC = () => {
+const ActivitySection = () => {
   const chartData = [
     { day: 'Jun 17', value: 0 },
     { day: 'Jun 21', value: 0 },

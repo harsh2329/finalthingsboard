@@ -15,14 +15,10 @@ import {
 } from 'lucide-react';
 import './Sidebar.css';
 
-interface SidebarProps {
-  collapsed: boolean;
-}
+const Sidebar = ({ collapsed }) => {
+  const [expandedItems, setExpandedItems] = useState(['profiles']);
 
-const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
-  const [expandedItems, setExpandedItems] = useState<string[]>(['profiles']);
-
-  const toggleExpanded = (item: string) => {
+  const toggleExpanded = (item) => {
     setExpandedItems(prev => 
       prev.includes(item) 
         ? prev.filter(i => i !== item)

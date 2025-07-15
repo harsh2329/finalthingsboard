@@ -1,7 +1,7 @@
 import React from 'react';
 import './MobileApp.css';
 
-const MobileApp: React.FC = () => {
+const MobileApp = () => {
   return (
     <div className="mobile-app">
       <h3>Connect mobile app</h3>

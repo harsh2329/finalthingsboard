@@ -2,13 +2,13 @@ import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import './Usage.css';
 
-const Usage: React.FC = () => {
+const Usage = () => {
   const usageData = [
     { label: 'Devices', current: 32, total: 100, color: '#4a6fa5' },
     { label: 'Assets', current: 3, total: 100, color: '#4caf50' },
     { label: 'Users', current: 6, total: 100, color: '#ff9800' },
     { label: 'Dashboards', current: 17, total: 100, color: '#9c27b0' },
-    { label: 'Customers', current: 5, total: '∞', color: '#f44336' }
+    { label: 'Customers', current: 5, total: '\u221e', color: '#f44336' }
   ];
 
   return (
@@ -34,7 +34,7 @@ const Usage: React.FC = () => {
               <div 
                 className="usage-fill" 
                 style={{ 
-                  width: item.total === '∞' ? '5%' : `${(item.current / Number(item.total)) * 100}%`,
+                  width: item.total === '\u221e' ? '5%' : `${(item.current / Number(item.total)) * 100}%`,
                   backgroundColor: item.color 
                 }}
               ></div>

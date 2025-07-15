@@ -2,7 +2,7 @@ import React from 'react';
 import { Edit } from 'lucide-react';
 import './Documentation.css';
 
-const Documentation: React.FC = () => {
+const Documentation = () => {
   const docLinks = [
     { label: 'Getting started', category: 'basics' },
     { label: 'Rule engine', category: 'advanced' },

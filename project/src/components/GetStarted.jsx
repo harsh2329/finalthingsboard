@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText } from 'lucide-react';
 import './GetStarted.css';
 
-const GetStarted: React.FC = () => {
+const GetStarted = () => {
   const steps = [
     {
       number: 1,

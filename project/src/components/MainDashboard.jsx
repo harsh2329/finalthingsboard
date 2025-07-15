@@ -1,21 +1,17 @@
 import React from 'react';
-import DemoUseCases from './DemoUseCases';
-import GetStarted from './GetStarted';
-import DevicesSection from './DevicesSection';
-import AlarmsSection from './AlarmsSection';
-import DashboardsSection from './DashboardsSection';
-import ActivitySection from './ActivitySection';
-import QuickLinks from './QuickLinks';
-import Documentation from './Documentation';
-import Usage from './Usage';
-import MobileApp from './MobileApp';
+import DemoUseCases from './DemoUseCases.jsx';
+import GetStarted from './GetStarted.jsx';
+import DevicesSection from './DevicesSection.jsx';
+import AlarmsSection from './AlarmsSection.jsx';
+import DashboardsSection from './DashboardsSection.jsx';
+import ActivitySection from './ActivitySection.jsx';
+import QuickLinks from './QuickLinks.jsx';
+import Documentation from './Documentation.jsx';
+import Usage from './Usage.jsx';
+import MobileApp from './MobileApp.jsx';
 import './MainDashboard.css';
 
-interface MainDashboardProps {
-  sidebarCollapsed: boolean;
-}
-
-const MainDashboard: React.FC<MainDashboardProps> = ({ sidebarCollapsed }) => {
+const MainDashboard = ({ sidebarCollapsed }) => {
   return (
     <main className={`main-dashboard ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="dashboard-content">

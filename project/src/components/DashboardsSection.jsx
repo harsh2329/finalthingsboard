@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronDown, Plus } from 'lucide-react';
 import './DashboardsSection.css';
 
-const DashboardsSection: React.FC = () => {
+const DashboardsSection = () => {
   return (
     <div className="dashboards-section">
       <div className="section-header">

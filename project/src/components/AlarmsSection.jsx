@@ -1,7 +1,7 @@
 import React from 'react';
 import './AlarmsSection.css';
 
-const AlarmsSection: React.FC = () => {
+const AlarmsSection = () => {
   return (
     <div className="alarms-section">
       <h3>Alarms</h3>

@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import './DemoUseCases.css';
 
-const DemoUseCases: React.FC = () => {
+const DemoUseCases = () => {
   const useCases = [
     {
       id: 'environmental',

@@ -2,12 +2,7 @@ import React from 'react';
 import { Menu, Bell, User, Home, Maximize2 } from 'lucide-react';
 import './Header.css';
 
-interface HeaderProps {
-  sidebarCollapsed: boolean;
-  onToggleSidebar: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ sidebarCollapsed, onToggleSidebar }) => {
+const Header = ({ sidebarCollapsed, onToggleSidebar }) => {
   return (
     <header className="header">
       <div className="header-left">

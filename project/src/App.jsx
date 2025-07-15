@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import MainDashboard from './components/MainDashboard';
+import Header from './components/Header.jsx';
+import Sidebar from './components/Sidebar.jsx';
+import MainDashboard from './components/MainDashboard.jsx';
 import './App.css';
 
 function App() {

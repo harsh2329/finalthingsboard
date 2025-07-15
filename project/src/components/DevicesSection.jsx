@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText, Plus } from 'lucide-react';
 import './DevicesSection.css';
 
-const DevicesSection: React.FC = () => {
+const DevicesSection = () => {
   return (
     <div className="devices-section">
       <div className="section-header">
