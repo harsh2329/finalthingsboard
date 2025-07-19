@@ -172,10 +172,10 @@ const Sidebar = ({ collapsed }) => {
       hasChildren: true,
       to: '/entities',
       children: [
-        { id: 'devices', label: 'Devices', to: '/entities/devices' },
+        { id: 'devices', label: 'Devices', to: '/devices' },
         { id: 'assets', label: 'Assets', to: '/entities/assets' },
         { id: 'entity-views', label: 'Entity views', to: '/entities/entity-views' },
-        { id: 'customers', label: 'Customers', to: '/entities/customers' }
+        { id: 'customers', label: 'Customers', to: '/customers' }
       ]
     },
     {
