@@ -5,6 +5,7 @@ import MainDashboard from './components/MainDashboard.jsx';
 import CustomerManagement from './components/sidebarcomponent/CustomerManagement.jsx';
 import './App.css';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import DeviceModal from './components/sidebarcomponent/DeviceModal.jsx';
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
