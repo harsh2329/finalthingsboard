@@ -35,7 +35,7 @@ const DeviceModal = ({ device, customers, onSave, onClose }) => {
     setLoading(true);
     
     try {
-      const url = device ? `/api/devices/${device.id}` : '/api/devices';
+      const url = device ? `/api/devices/${device.id}` : '/deviceRoutes/';
       const method = device ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
