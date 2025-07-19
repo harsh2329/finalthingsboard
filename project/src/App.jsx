@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path='/customers' element={<CustomerManagement />} />
         <Route path='/devices' element={ <DeviceModal/>} />
-        <Route path ='/dashboard' element ={<MainDashboard />} />
+        <Route path ='/' element ={<MainDashboard />} />
       </Routes>
     </div>
   );
