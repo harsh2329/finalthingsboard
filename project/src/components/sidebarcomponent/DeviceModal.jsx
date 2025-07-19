@@ -157,11 +157,15 @@ const DeviceModal = ({ device, customers, onSave, onClose }) => {
                   disabled={loading}
                 >
                   <option value="">Select customer</option>
-                  {customers.map(customer => (
-                    <option key={customer.id} value={customer.id}>
-                      {customer.title}
-                    </option>
-                  ))}
+                  {customers && customers.length > 0 ? (
+                    customers.map(customer => (
+                      <option key={customer.id} value={customer.id}>
+                        {customer.title}
+                      </option>
+                    ))
+                  ) : (
+                    <option disabled>No customers available</option>
+                  )}
                 </select>
               </div>
 
