@@ -20,7 +20,7 @@ const MainDashboard = ({ sidebarCollapsed }) => {
         <div className="dashboard-grid">
           <div className="left-column">
             <DevicesSection />
-            <DashboardsSection />
+            {/* <DashboardsSection /> */}
             <QuickLinks />
           </div>
           
