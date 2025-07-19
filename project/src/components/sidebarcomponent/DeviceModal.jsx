@@ -36,7 +36,7 @@ const DeviceModal = ({ device, customers, onSave, onClose }) => {
     
     try {
       const baseURL = 'http://localhost:1000';
-      const url = device ? `${baseURL}/api/devices/${device.id}` : `${baseURL}/api/devices`;
+      const url = device ? `${baseURL}/devices/${device.id}` : `${baseURL}/api/devices/create`;
       const method = device ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
