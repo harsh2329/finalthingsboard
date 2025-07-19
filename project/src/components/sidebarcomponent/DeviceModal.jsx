@@ -35,11 +35,7 @@ const DeviceModal = ({ device, customers, onSave, onClose }) => {
     setLoading(true);
     
     try {
-      // For Vite projects use: import.meta.env.VITE_API_URL
-      // For Create React App use: process.env.REACT_APP_API_URL
-      const baseURL = (typeof import !== 'undefined' && import.meta?.env?.VITE_API_URL) || 
-                      (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) || 
-                      'http://localhost:5000';
+      const baseURL = 'http://localhost:1000';
       const url = device ? `${baseURL}/api/devices/${device.id}` : `${baseURL}/api/devices`;
       const method = device ? 'PUT' : 'POST';
       
