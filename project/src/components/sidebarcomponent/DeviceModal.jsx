@@ -35,7 +35,8 @@ const DeviceModal = ({ device, customers, onSave, onClose }) => {
     setLoading(true);
     
     try {
-      const url = device ? `/api/devices/${device.id}` : '/deviceRoutes/';
+      const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const url = device ? `${baseURL}/api/devices/${device.id}` : `${baseURL}/api/devices`;
       const method = device ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
