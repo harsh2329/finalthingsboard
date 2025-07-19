@@ -18,13 +18,14 @@ function App() {
       />
       <div className="app-body">
         <Sidebar collapsed={sidebarCollapsed} />
-        <MainDashboard sidebarCollapsed={sidebarCollapsed} />
-      </div>
-      <Routes>
+        {/* <MainDashboard sidebarCollapsed={sidebarCollapsed} /> */}
+        <Routes>
         <Route path='/customers' element={<CustomerManagement />} />
         <Route path='/devices' element={ <DeviceModal/>} />
         <Route path ='/dashboard' element ={<MainDashboard />} />
       </Routes>
+      </div>
+      
     </div>
   );
 }
