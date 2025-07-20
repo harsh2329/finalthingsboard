@@ -54,7 +54,7 @@ const DeviceManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = editingDevice ? `/api/devices/${editingDevice._id}` : '/api/devices/add';
+      const url = editingDevice ? `/devices/${editingDevice._id}` : '/devices/add';
       const method = editingDevice ? 'PUT' : 'POST';
       
       const response = await fetch(url, {
