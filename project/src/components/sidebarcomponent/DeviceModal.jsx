@@ -51,33 +51,74 @@ const DeviceManagement = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const url = editingDevice ? `/devices/${editingDevice._id}` : '/devices/add';
-      const method = editingDevice ? 'PUT' : 'POST';
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const url = editingDevice ? `/devices/${editingDevice._id}` : '/devices/add';
+  //     const method = editingDevice ? 'PUT' : 'POST';
       
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+  //     const response = await fetch(url, {
+  //       method,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(`Device ${editingDevice ? 'updated' : 'added'} successfully:`, result);
-        fetchDevices(); // Refresh the list
-        closeModal();
-      } else {
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log(`Device ${editingDevice ? 'updated' : 'added'} successfully:`, result);
+  //       fetchDevices(); // Refresh the list
+  //       closeModal();
+  //     } else {
+  //       const error = await response.json();
+  //       console.error('Error:', error.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const url = editingDevice ? `/devices/${editingDevice._id}` : '/devices/add';
+    const method = editingDevice ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log(`Device ${editingDevice ? 'updated' : 'added'} successfully:`, result);
+      fetchDevices(); // Refresh the device list
+      closeModal();   // Close the modal
+    } else {
+      // Try to parse JSON error message
+      let errorMessage = 'An error occurred.';
+      try {
         const error = await response.json();
-        console.error('Error:', error.message);
+        errorMessage = error?.message || JSON.stringify(error);
+      } catch (jsonError) {
+        // Fallback: Try to read plain text
+        const text = await response.text();
+        errorMessage = text || errorMessage;
       }
-    } catch (error) {
-      console.error('Error submitting form:', error);
+
+      console.error('Error:', errorMessage);
+      alert(`Error: ${errorMessage}`);
     }
-  };
+  } catch (error) {
+    // Network error or unexpected exception
+    console.error('Error submitting form:', error);
+    alert(`Unexpected error: ${error.message}`);
+  }
+};
 
   const handleDelete = async (deviceId) => {
     if (window.confirm('Are you sure you want to delete this device?')) {
