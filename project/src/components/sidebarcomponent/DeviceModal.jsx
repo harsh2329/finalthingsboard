@@ -81,7 +81,7 @@ const DeviceManagement = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const baseUrl = 'http://localhost:5000/device'; // Your backend base URL
+  const baseUrl = 'http://localhost:1000/device'; // Your backend base URL
 
   try {
     const url = editingDevice
