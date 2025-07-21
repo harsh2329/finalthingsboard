@@ -53,9 +53,9 @@
 //     setError(null);
     
 //     try {
-//       console.log('Fetching devices from: http://localhost:1000/device/all');
+//       console.log('Fetching devices from: https://thingsbackend-mh3j.onrender.com/device/all');
       
-//       const response = await fetch('http://localhost:1000/device/all', {
+//       const response = await fetch('https://thingsbackend-mh3j.onrender.com/device/all', {
 //         method: 'GET',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@
 //     );
 
 //     try {
-//       const baseUrl = 'http://localhost:1000/device';
+//       const baseUrl = 'https://thingsbackend-mh3j.onrender.com/device';
 //       const url = editingDevice
 //         ? `${baseUrl}/${editingDevice._id}`
 //         : `${baseUrl}/add`;
@@ -219,7 +219,7 @@
 //       const loadingToast = toast.loading('Deleting device...', toastConfig);
       
 //       try {
-//         const response = await fetch(`http://localhost:1000/device/${deviceId}`, {
+//         const response = await fetch(`https://thingsbackend-mh3j.onrender.com/device/${deviceId}`, {
 //           method: 'DELETE',
 //         });
 
@@ -662,9 +662,9 @@ const DeviceManagement = () => {
     setCustomersLoading(true);
     
     try {
-      console.log('Fetching customers from: http://localhost:1000/customers/all');
+      console.log('Fetching customers from: https://thingsbackend-mh3j.onrender.com/customers/all');
       
-      const response = await fetch('http://localhost:1000/customers/all', {
+      const response = await fetch('https://thingsbackend-mh3j.onrender.com/customers/all', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -703,9 +703,9 @@ const DeviceManagement = () => {
     setError(null);
     
     try {
-      console.log('Fetching devices from: http://localhost:1000/device/all');
+      console.log('Fetching devices from: https://thingsbackend-mh3j.onrender.com/device/all');
       
-      const response = await fetch('http://localhost:1000/device/all', {
+      const response = await fetch('https://thingsbackend-mh3j.onrender.com/device/all', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -785,7 +785,7 @@ const DeviceManagement = () => {
     );
 
     try {
-      const baseUrl = 'http://localhost:1000/device';
+      const baseUrl = 'https://thingsbackend-mh3j.onrender.com/device';
       const url = editingDevice
         ? `${baseUrl}/${editingDevice._id}`
         : `${baseUrl}/add`;
@@ -853,7 +853,7 @@ const DeviceManagement = () => {
       const loadingToast = toast.loading('Deleting device...', toastConfig);
       
       try {
-        const response = await fetch(`http://localhost:1000/device/${deviceId}`, {
+        const response = await fetch(`https://thingsbackend-mh3j.onrender.com/device/${deviceId}`, {
           method: 'DELETE',
         });
 
@@ -1236,6 +1236,7 @@ const DeviceManagement = () => {
                   </div>
                 )}
               </div>
+            
 
               <div className="modal-footer">
                 <div className="footer-left">
