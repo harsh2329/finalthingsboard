@@ -430,114 +430,102 @@
 
 
 // export default DeviceManagement;
-
 import React, { useState, useEffect } from 'react';
-import '../../assets/css/DeviceModal.css';
+import axios from 'axios';
 
-const DeviceManagement = () => {
-  const [devices, setDevices] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [editingDevice, setEditingDevice] = useState(null);
-  const [formData, setFormData] = useState({ name:'', label:'', deviceProfile:'default', isGateway:false, customerId:'', description:'' });
-  const deviceProfiles = ['default','Air Quality Sensor','Charging Port','Heat Sensor','sand Filter','Valve','Water sensor','PH sensor'];
+const DeviceModal = ({ onClose }) => {
+  const [deviceName, setDeviceName] = useState('');
+  const [model, setModel] = useState('');
+  const [customerId, setCustomerId] = useState('');
+  const [customers, setCustomers] = useState([]);
+  const [error, setError] = useState('');
 
-  useEffect(() => fetchDevices(), []);
+  // ✅ Fetch customers from backend
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const res = await axios.get('http://localhost:3001/api/customers');
+        setCustomers(res.data);
+      } catch (err) {
+        console.error('Error fetching customers:', err);
+      }
+    };
 
-  const fetchDevices = async () => {
-    const res = await fetch('http://localhost:1000/device/all');
-    const json = await res.json();
-    setDevices(json.data);
-  };
+    fetchCustomers();
+  }, []);
 
-  const handleInputChange = e => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
-  };
-
-  const handleSubmit = async e => {
+  // ✅ Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = editingDevice ? `http://localhost:1000/device/${editingDevice._id}` : 'http://localhost:1000/device/add';
-    const method = editingDevice ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type':'application/json' },
-      body: JSON.stringify(formData)
-    });
+    // Simple form validation
+    if (!deviceName || !model || !customerId) {
+      setError('All fields are required.');
+      return;
+    }
 
-    if (res.ok) {
-      await fetchDevices();
-      setShowModal(false);
-    } else {
-      const err = await res.json();
-      alert(err.message || 'Error occurred');
+    try {
+      const res = await axios.post('http://localhost:3001/api/devices', {
+        deviceName,
+        model,
+        customerId,
+      });
+
+      console.log('Device added:', res.data);
+      onClose(); // Close the modal after success
+    } catch (err) {
+      console.error('Error adding device:', err);
+      setError('Failed to add device. Please check inputs and server.');
     }
   };
 
-  const openModal = (device=null) => {
-    setEditingDevice(device);
-    setFormData(device ? {
-      name: device.name,
-      label: device.label,
-      deviceProfile: device.deviceProfile,
-      isGateway: device.isGateway,
-      customerId: device.customerId || '',
-      description: device.description || ''
-    } : { name:'', label:'', deviceProfile:'default', isGateway:false, customerId:'', description:'' });
-    setShowModal(true);
-  };
-
-  const handleDelete = async id => {
-    if (!window.confirm('Confirm delete?')) return;
-    const res = await fetch(`http://localhost:1000/device/${id}`, { method:'DELETE' });
-    if (res.ok) fetchDevices();
-    else alert((await res.json()).message);
-  };
-
   return (
-    <div>
-      <h1>Device Manager</h1>
-      <button onClick={() => openModal()}>Add Device</button>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>Label</th><th>Profile</th><th>Gateway</th><th>Actions</th></tr>
-        </thead>
-        <tbody>
-          {devices.map(d => (
-            <tr key={d._id}>
-              <td>{d.name}</td><td>{d.label}</td><td>{d.deviceProfile}</td><td>{d.isGateway ? 'Yes':'No'}</td>
-              <td>
-                <button onClick={() => openModal(d)}>Edit</button>
-                <button onClick={() => handleDelete(d._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {showModal && (
-        <div className="modal">
-          <h2>{editingDevice ? 'Edit' : 'Add'} Device</h2>
-          <form onSubmit={handleSubmit}>
-            <label>Name*:<input name="name" value={formData.name} onChange={handleInputChange} required/></label>
-            <label>Label*:<input name="label" value={formData.label} onChange={handleInputChange} required/></label>
-            <label>Profile*:
-              <select name="deviceProfile" value={formData.deviceProfile} onChange={handleInputChange} required>
-                {deviceProfiles.map(p=> <option key={p}>{p}</option>)}
-              </select>
-            </label>
-            <label>Gateway:<input name="isGateway" type="checkbox" checked={formData.isGateway} onChange={handleInputChange}/></label>
-            <label>Customer ID:<input name="customerId" value={formData.customerId} onChange={handleInputChange}/></label>
-            <label>Description:<textarea name="description" value={formData.description} onChange={handleInputChange}/></label>
-            <div>
-              <button type="submit">{editingDevice ? 'Update' : 'Add'}</button>
-              <button type="button" onClick={() => setShowModal(false)}>Cancel</button>
-            </div>
-          </form>
-        </div>
-      )}
+    <div className="modal">
+      <div className="modal-content">
+        <h2>Add Device</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Device Name:</label>
+            <input
+              type="text"
+              value={deviceName}
+              onChange={(e) => setDeviceName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Model:</label>
+            <input
+              type="text"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Customer:</label>
+            <select
+              value={customerId}
+              onChange={(e) => setCustomerId(e.target.value)}
+              required
+            >
+              <option value="">Select customer</option>
+              {customers.map((cust) => (
+                <option key={cust._id} value={cust._id}>
+                  {cust.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button type="submit">Add Device</button>
+          <button type="button" onClick={onClose}>
+            Cancel
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default DeviceManagement;
+export default DeviceModal;
