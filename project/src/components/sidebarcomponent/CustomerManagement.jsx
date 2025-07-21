@@ -25,7 +25,7 @@ const CustomerManagement = () => {
   });
 
   // API base URL - matches your server route app.use('/customers', CustomerRoutes)
-  const API_BASE_URL = 'https://thingsbackend-mh3j.onrender.com-mh3j.onrender.com-mh3j.onrender.com/customers';
+  const API_BASE_URL = 'https://thingsbackend-mh3j.onrender.com/customers';
 
   // Toast configuration
   const toastConfig = {
