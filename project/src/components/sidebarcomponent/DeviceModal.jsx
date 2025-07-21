@@ -432,181 +432,185 @@
 // export default DeviceManagement;
 // import React, { useState, useEffect } from 'react';
 // import '../../assets/css/DeviceModal.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-
-import React, { useState, useEffect } from 'react';
-import '../../assets/css/DeviceModal.css';
-
-const DeviceManagement = () => {
+const DeviceModal = () => {
   const [devices, setDevices] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingDevice, setEditingDevice] = useState(null);
+  const [deviceProfiles, setDeviceProfiles] = useState(["TemperatureSensor", "LightSensor", "MotionDetector"]);
   const [currentStep, setCurrentStep] = useState(1);
+
   const [formData, setFormData] = useState({
-    name: '',
-    label: '',
-    deviceProfile: 'default',
+    name: "",
+    label: "",
+    deviceProfile: "TemperatureSensor",
     isGateway: false,
-    customerId: '',
-    description: ''
+    customerId: "",
+    description: "",
   });
 
-  const deviceProfiles = [
-    'default',
-    'Air Quality Sensor',
-    'Charging Port',
-    'Heat Sensor',
-    'sand Filter',
-    'Valve',
-    'Water sensor',
-    'PH sensor'
-  ];
-
-  // Fetch devices on component mount
   useEffect(() => {
     fetchDevices();
   }, []);
 
   const fetchDevices = async () => {
     try {
-      const response = await fetch('http://localhost:1000/device/all');
-      if (response.ok) {
-        const result = await response.json();
-        setDevices(result.data || []);
-      }
+      const response = await axios.get("http://localhost:3001/api/devices");
+      setDevices(response.data);
     } catch (error) {
-      console.error('Error fetching devices:', error);
+      console.error("Error fetching devices:", error);
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const baseUrl = 'http://localhost:1000/device'; // Your backend base URL
-
     try {
-      const url = editingDevice
-        ? `${baseUrl}/${editingDevice._id}`
-        : `${baseUrl}/add`;
-
-      const method = editingDevice ? 'PUT' : 'POST';
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const responseText = await response.text(); // Only read body once
-
-      if (response.ok) {
-        const result = responseText ? JSON.parse(responseText) : {};
-        console.log(`Device ${editingDevice ? 'updated' : 'added'} successfully:`, result);
-        fetchDevices(); // Refresh list
-        closeModal();
+      if (editingDevice) {
+        await axios.put(`http://localhost:3001/api/devices/${editingDevice._id}`, formData);
       } else {
-        let errorMessage = 'An error occurred.';
-        try {
-          const error = JSON.parse(responseText);
-          errorMessage = error?.message || JSON.stringify(error);
-        } catch (err) {
-          errorMessage = responseText || errorMessage;
-        }
-        console.error('Error:', errorMessage);
-        alert(`Error: ${errorMessage}`);
+        await axios.post("http://localhost:3001/api/devices", formData);
       }
+      fetchDevices();
+      closeModal();
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert(`Unexpected error: ${error.message}`);
+      console.error("Error submitting form:", error);
     }
-  };
-
-  const handleDelete = async (deviceId) => {
-    if (window.confirm('Are you sure you want to delete this device?')) {
-      try {
-        const response = await fetch(`http://localhost:1000/device/${deviceId}`, {
-          method: 'DELETE',
-        });
-
-        if (response.ok) {
-          console.log('Device deleted successfully');
-          fetchDevices(); // Refresh the list
-        } else {
-          const error = await response.json();
-          console.error('Error deleting device:', error.message);
-        }
-      } catch (error) {
-        console.error('Error deleting device:', error);
-      }
-    }
-  };
-
-  const handleEdit = (device) => {
-    setEditingDevice(device);
-    setFormData({
-      name: device.name || '',
-      label: device.label || '',
-      deviceProfile: device.deviceProfile || 'default',
-      isGateway: device.isGateway || false,
-      customerId: device.customerId?._id || '',
-      description: device.description || ''
-    });
-    setCurrentStep(1);
-    setShowModal(true);
   };
 
   const openModal = () => {
+    setShowModal(true);
     setEditingDevice(null);
     setFormData({
-      name: '',
-      label: '',
-      deviceProfile: 'default',
+      name: "",
+      label: "",
+      deviceProfile: "TemperatureSensor",
       isGateway: false,
-      customerId: '',
-      description: ''
+      customerId: "",
+      description: "",
     });
     setCurrentStep(1);
-    setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
     setEditingDevice(null);
+  };
+
+  const handleEdit = (device) => {
+    setEditingDevice(device);
+    setFormData({
+      name: device.name || "",
+      label: device.label || "",
+      deviceProfile: device.deviceProfile || "TemperatureSensor",
+      isGateway: device.isGateway || false,
+      customerId: device.customerId?._id || device.customerId || "",
+      description: device.description || "",
+    });
     setCurrentStep(1);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/api/devices/${id}`);
+      fetchDevices();
+    } catch (error) {
+      console.error("Error deleting device:", error);
+    }
   };
 
   const nextStep = () => {
-    if (currentStep < 2) {
-      setCurrentStep(currentStep + 1);
-    }
+    if (currentStep < 2) setCurrentStep(currentStep + 1);
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString();
+    return new Date(dateString).toLocaleString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   return (
-    <div className="device-management">
-      {/* UI remains unchanged */}
+    <div className="device-management" style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>Device Management</h1>
+      <button onClick={openModal}>Add Device</button>
+
+      <div style={{ marginTop: "2rem" }}>
+        {devices.length === 0 ? (
+          <p>No devices found.</p>
+        ) : (
+          devices.map((device) => (
+            <div key={device._id} style={{ border: "1px solid #ccc", padding: "1rem", marginBottom: "1rem" }}>
+              <h3>{device.name}</h3>
+              <p><strong>Label:</strong> {device.label}</p>
+              <p><strong>Profile:</strong> {device.deviceProfile}</p>
+              <p><strong>Gateway:</strong> {device.isGateway ? "Yes" : "No"}</p>
+              <p><strong>Customer ID:</strong> {device.customerId?._id || device.customerId}</p>
+              <p><strong>Description:</strong> {device.description}</p>
+              <p><strong>Created:</strong> {formatDate(device.createdAt)}</p>
+
+              <button onClick={() => handleEdit(device)}>Edit</button>
+              <button onClick={() => handleDelete(device._id)} style={{ marginLeft: "1rem" }}>Delete</button>
+            </div>
+          ))
+        )}
+      </div>
+
+      {showModal && (
+        <div style={{ border: "2px solid #000", padding: "2rem", marginTop: "2rem", background: "#f7f7f7" }}>
+          <h2>{editingDevice ? "Edit Device" : "Add Device"}</h2>
+          <form onSubmit={handleSubmit}>
+            {currentStep === 1 && (
+              <>
+                <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleInputChange} required /><br /><br />
+                <input type="text" name="label" placeholder="Label" value={formData.label} onChange={handleInputChange} required /><br /><br />
+                <select name="deviceProfile" value={formData.deviceProfile} onChange={handleInputChange}>
+                  {deviceProfiles.map((profile) => (
+                    <option key={profile} value={profile}>{profile}</option>
+                  ))}
+                </select><br /><br />
+              </>
+            )}
+
+            {currentStep === 2 && (
+              <>
+                <label>
+                  <input type="checkbox" name="isGateway" checked={formData.isGateway} onChange={handleInputChange} />
+                  Is Gateway
+                </label><br /><br />
+                <input type="text" name="customerId" placeholder="Customer ID" value={formData.customerId} onChange={handleInputChange} required /><br /><br />
+                <textarea name="description" placeholder="Description" value={formData.description} onChange={handleInputChange}></textarea><br /><br />
+              </>
+            )}
+
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <button type="button" onClick={prevStep} disabled={currentStep === 1}>Back</button>
+              <button type="button" onClick={nextStep} disabled={currentStep === 2}>Next</button>
+              <button type="submit">{editingDevice ? "Update" : "Add"}</button>
+              <button type="button" onClick={closeModal}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
 
-export default DeviceManagement;
+export default DeviceModal;
