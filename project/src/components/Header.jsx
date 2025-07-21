@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Bell, User, Home, Maximize2 } from 'lucide-react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = ({ sidebarCollapsed, onToggleSidebar }) => {
   return (
@@ -19,7 +20,7 @@ const Header = ({ sidebarCollapsed, onToggleSidebar }) => {
         </div>
         <div className="breadcrumb">
           <Home size={16} />
-          <span>Home</span>
+          <span><Link to="/">Home</Link></span>
         </div>
       </div>
       
