@@ -12,6 +12,7 @@ function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
+       <div className="responsive-wrapper">
     <div className="app">
       <Header 
         sidebarCollapsed={sidebarCollapsed}
@@ -28,6 +29,7 @@ function App() {
       </Routes>
       </div>
       
+    </div>
     </div>
   );
 }
