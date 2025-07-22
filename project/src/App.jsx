@@ -6,6 +6,7 @@ import CustomerManagement from './components/sidebarcomponent/CustomerManagement
 import './App.css';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import DeviceModal from './components/sidebarcomponent/DeviceModal.jsx';
+import Chart from './components/sidebarcomponent/Chart.jsx'
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -23,6 +24,7 @@ function App() {
         <Route path='/customers' element={<CustomerManagement />} />
         <Route path='/devices' element={ <DeviceModal/>} />
         <Route path ='/' element ={<MainDashboard />} />
+        <Route path='/chart' element={<Chart />} />
       </Routes>
       </div>
       

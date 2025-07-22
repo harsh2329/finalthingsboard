@@ -163,7 +163,7 @@ const Sidebar = ({ collapsed }) => {
 
   const menuItems = [
     { id: 'home', label: 'Home', icon: Home, active: true, to: '/' },
-    { id: 'alarms', label: 'Alarms', icon: AlertTriangle, to: '/alarms' },
+    { id: 'alarms', label: 'Charts', icon: AlertTriangle, to: '/chart' },
     { id: 'dashboards', label: 'Dashboards', icon: BarChart3, to: '/' },
     {
       id: 'entities',
