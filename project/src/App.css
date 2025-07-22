@@ -22,3 +22,22 @@ body {
   flex: 1;
   overflow: hidden;
 }
+
+.responsive-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.responsive-wrapper * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* For Chart.js canvas */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}

@@ -701,6 +701,7 @@ const GasPressureDashboard = () => {
   };
 
   return (
+    <div className="responsive-wrapper">
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 pb-8">
       {/* Toast Notification */}
       <Toast 
@@ -1015,6 +1016,7 @@ const GasPressureDashboard = () => {
        </div>
      </div>
    </div>
+ </div>
  </div>
  );
 };
